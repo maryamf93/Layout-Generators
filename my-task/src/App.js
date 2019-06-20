@@ -12,10 +12,36 @@ class App extends React.Component {
 
   handleChange(event) {
     this.setState({ validate: event.target.value },
-      () => { const VALIDATE = this.state.validate.toUpperCase().split("/")
-      for (i) }
+      () => { 
+        var VALIDATE = this.state.validate.toUpperCase().split("/")
+        console.log(VALIDATE)
+        var i;
+        for (i = 0; i < VALIDATE.length; i++) {
+          if (VALIDATE[i].search('XL') !== -1) {
+            var j;
+            for (j = 0; j < parseInt(VALIDATE[i]); j++) {
+              return (
+                <div className='XL'></div>
+              )
+            }  
+          } if (VALIDATE[i].search('L') !== -1) {
+            var k;
+            for (k = 0; k < parseInt(VALIDATE[i]); k++) {
+              return (
+                <div className='L'></div>
+              )
+            } 
+          } else if (VALIDATE[i].search('SM') !== -1) {
+            var l;
+            for (l = 0; l < parseInt(VALIDATE[i]); l++) {
+              return (
+                <div className='SM'></div>
+              )
+            } 
+          }
+        }
+      }
     )
-    console.log(event.target.value.toUpperCase().split("/"))
   }
 
   render() {
@@ -24,13 +50,13 @@ class App extends React.Component {
       <input 
         className='input-box'
         type='text'
-        placeholder='Example: 2XL/L'
+        placeholder='Example: 2XL/L/SM'
         name='validate'
         onChange={(event) => this.handleChange(event)}
       >
       </input>
       <div className='output' >
-      
+        {this.handleChange}
       </div>
     </div>
     )
