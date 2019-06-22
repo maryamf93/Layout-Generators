@@ -1,67 +1,78 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import './App.css'
+import arrow from './arrow.svg'
 
 class App extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = {
-      validate: ''
+      validate: '',
+      validateOutput: []
     }
   }
 
-  handleChange(event) {
-    this.setState({ validate: event.target.value },
-      () => { 
-        var VALIDATE = this.state.validate.toUpperCase().split("/")
-        console.log(VALIDATE)
-        var i;
-        for (i = 0; i < VALIDATE.length; i++) {
-          if (VALIDATE[i].search('XL') !== -1) {
-            var j;
+  handleChange (event) {
+    this.setState({ validate: event.target.value })
+  }
+
+  handleClick () {
+    var VALIDATE = this.state.validate.toUpperCase().split('/')
+    console.log(VALIDATE)
+    var i
+    var validateOutput
+    var selectObject = ['XL', 'L', 'SM']
+    for (i = 0; i < VALIDATE.length; i++) {
+      var k
+      for (k = 0; k < selectObject.length; k++) {
+        if (VALIDATE[i].replace(/\d+/g, '') === (selectObject[k])) {
+          if (isNaN(parseInt(VALIDATE[i]))) {
+            validateOutput = document.createElement('div')
+            validateOutput.setAttribute('class', selectObject[k])
+            validateOutput = document.getElementById('output').appendChild(validateOutput)
+          } else {
+            var j
             for (j = 0; j < parseInt(VALIDATE[i]); j++) {
-              return (
-                <div className='XL'></div>
-              )
-            }  
-          } if (VALIDATE[i].search('L') !== -1) {
-            var k;
-            for (k = 0; k < parseInt(VALIDATE[i]); k++) {
-              return (
-                <div className='L'></div>
-              )
-            } 
-          } else if (VALIDATE[i].search('SM') !== -1) {
-            var l;
-            for (l = 0; l < parseInt(VALIDATE[i]); l++) {
-              return (
-                <div className='SM'></div>
-              )
-            } 
+              validateOutput = document.createElement('div')
+              validateOutput.setAttribute('class', selectObject[k])
+              validateOutput = document.getElementById('output').appendChild(validateOutput)
+            }
           }
         }
       }
-    )
+    }
+    this.setState({ validate: '' })
   }
 
-  render() {
-     return (
-    <div className="App">
-      <input 
-        className='input-box'
-        type='text'
-        placeholder='Example: 2XL/L/SM'
-        name='validate'
-        onChange={(event) => this.handleChange(event)}
-      >
-      </input>
-      <div className='output' >
-        {this.handleChange}
+  render () {
+    return (
+      <div className='App'>
+        <div >
+          <p> Enter The Desired Value, Similar To Example</p>
+          <input
+            className='input-box'
+            type='text'
+            placeholder='Example: 2XL/L/SM'
+            name='validate'
+            onChange={(event) => this.handleChange(event)}
+          />
+        </div>
+
+        <div>
+          <button
+            className='display-btn'
+            onClick={() => this.handleClick()}>
+            Show output
+            <img
+              className='material-icons'
+              src={arrow}
+            />
+          </button>
+        </div>
+
+        <div id='output' />
       </div>
-    </div>
     )
   }
- 
 }
 
-export default App;
+export default App
