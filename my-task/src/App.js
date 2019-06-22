@@ -1,6 +1,7 @@
 import React from 'react'
 import './App.css'
 import arrow from './arrow.svg'
+import Reload from './Reload.svg'
 
 class App extends React.Component {
   constructor (props) {
@@ -43,6 +44,10 @@ class App extends React.Component {
     this.setState({ validate: '' })
   }
 
+  ResetApp () {
+    window.location.reload()
+  }
+
   render () {
     return (
       <div className='App'>
@@ -57,7 +62,7 @@ class App extends React.Component {
           />
         </div>
 
-        <div>
+        <div className='button-box'>
           <button
             className='display-btn'
             onClick={() => this.handleClick()}>
@@ -65,6 +70,15 @@ class App extends React.Component {
             <img
               className='material-icons'
               src={arrow}
+            />
+          </button>
+          <button
+            className='reload-btn'
+            onClick={() => this.ResetApp()}>
+            Reset
+            <img
+              className='material-icons'
+              src={Reload}
             />
           </button>
         </div>
